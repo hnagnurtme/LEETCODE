@@ -1,4 +1,4 @@
-name: Update Stats
+name: Update LeetCode Stats
 
 on:
   push:
@@ -9,13 +9,14 @@ jobs:
   update-readme:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   
+      contents: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}   # 👈 dùng token mặc định của GitHub
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0  # Lấy toàn bộ lịch sử để tránh lỗi shallow clone
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -25,7 +26,23 @@ jobs:
       - name: Run stats script
         run: python .github/scripts/update_stats.py
 
-      - name: Commit changes
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.has_changes == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: update stats in README"
+          commit_message: "chore: update README with stats and notes"
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+
+      - name: No changes detected
+        if: steps.check_changes.outputs.has_changes == 'false'
+        run: echo "✅ README is already up to date"
