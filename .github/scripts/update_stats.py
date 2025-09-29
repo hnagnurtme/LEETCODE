@@ -4,10 +4,11 @@ import re
 repo_path = "."
 problems = []
 
+# Quét toàn bộ thư mục để tìm bài LeetCode
 for entry in os.listdir(repo_path):
     folder = os.path.join(repo_path, entry)
     if os.path.isdir(folder) and re.match(r"^\d{4}-", entry):
-        # Tách id + title
+        # Tách id + title từ tên folder
         parts = entry.split("-", 1)
         qid = parts[0]
         title = parts[1].replace("-", " ").title() if len(parts) > 1 else "Unknown"
@@ -17,18 +18,13 @@ for entry in os.listdir(repo_path):
         if os.path.exists(solution_file):
             problems.append((qid, title, "Java", os.path.relpath(solution_file, repo_path)))
         else:
-            # fallback: lấy file .cpp nếu có
+            # fallback: lấy file .cpp hoặc .java khác nếu có
             for f in os.listdir(folder):
                 if f.endswith(".cpp") or f.endswith(".java"):
                     problems.append((qid, title, f.split(".")[-1].upper(), os.path.join(entry, f)))
 
-# Sort theo id
+# Sort theo ID
 problems.sort(key=lambda x: int(x[0]))
-
-# --- Update README.md ---
-readme = "README.md"
-with open(readme, "r", encoding="utf-8") as f:
-    content = f.read()
 
 # Tạo bảng markdown
 table_header = "| # | Tiêu đề | Ngôn ngữ | File |\n|---|----------|----------|------|"
@@ -39,12 +35,20 @@ for qid, title, lang, path in problems:
 
 table_md = table_header + "\n" + "\n".join(table_rows)
 
-content = re.sub(
-    r"<!-- TABLE:START -->(.*?)<!-- TABLE:END -->",
-    f"<!-- TABLE:START -->\n{table_md}\n<!-- TABLE:END -->",
-    content,
-    flags=re.S,
-)
+# Cập nhật README.md
+readme = "README.md"
+with open(readme, "r", encoding="utf-8") as f:
+    content = f.read()
+
+pattern = r"<!-- TABLE:START -->(.*?)<!-- TABLE:END -->"
+replacement = f"<!-- TABLE:START -->\n{table_md}\n<!-- TABLE:END -->"
+
+if re.search(pattern, content, flags=re.S):
+    # Nếu đã có block thì update
+    content = re.sub(pattern, replacement, content, flags=re.S)
+else:
+    # Nếu chưa có block thì chèn vào cuối README
+    content += "\n\n" + replacement
 
 with open(readme, "w", encoding="utf-8") as f:
     f.write(content)
