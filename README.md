@@ -22,7 +22,18 @@ Repo này được tự động đồng bộ từ LeetHub và có CI/CD cập nh
 Các ghi chú chi tiết cho từng bài đã hoàn thành:
 
 <!-- NOTES:START -->
-_Chưa có ghi chú nào. Thêm file `NOTE.md` vào folder bài tập để hiển thị ở đây._
+### 1295 - Find Numbers With Even Number Of Digits
+<details>
+<summary>📖 Xem ghi chú</summary>
+
+test\
+
+> _[Xem file gốc](1295-find-numbers-with-even-number-of-digits/NOTE.md)_
+
+</details>
+
+---
+
 <!-- NOTES:END -->
 
 ## ✍️ Notes thủ công
