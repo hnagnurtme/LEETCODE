@@ -17,5 +17,13 @@ Repo này được tự động đồng bộ từ LeetHub và có CI/CD cập nh
 | 1295 | Find Numbers With Even Number Of Digits | CPP | [link](1295-find-numbers-with-even-number-of-digits/1295-find-numbers-with-even-number-of-digits.cpp) |
 <!-- TABLE:END -->
 
+## 📝 Notes & Showcases
+
+Các ghi chú chi tiết cho từng bài đã hoàn thành:
+
+<!-- NOTES:START -->
+_Chưa có ghi chú nào. Thêm file `NOTE.md` vào folder bài tập để hiển thị ở đây._
+<!-- NOTES:END -->
+
 ## ✍️ Notes thủ công
 - Bạn có thể thêm ghi chú, hình ảnh minh họa cho từng bài ở đây.
