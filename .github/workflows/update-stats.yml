@@ -8,11 +8,14 @@ on:
 jobs:
   update-readme:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          persist-credentials: false
+          token: ${{ secrets.GITHUB_TOKEN }}   # 👈 dùng token mặc định của GitHub
 
       - name: Set up Python
         uses: actions/setup-python@v4
