@@ -7,6 +7,7 @@ Repo này được tự động đồng bộ từ LeetHub và có CI/CD cập nh
 <!-- TABLE:START -->
 | # | Tiêu đề | Ngôn ngữ | File |
 |---|----------|----------|------|
+| 0001 | Two Sum | JAVA | [link](0001-two-sum/0001-two-sum.java) |
 | 0005 | Longest Palindromic Substring | CPP | [link](0005-longest-palindromic-substring/0005-longest-palindromic-substring.cpp) |
 | 0011 | Container With Most Water | JAVA | [link](0011-container-with-most-water/0011-container-with-most-water.java) |
 | 0027 | Remove Element | JAVA | [link](0027-remove-element/0027-remove-element.java) |
